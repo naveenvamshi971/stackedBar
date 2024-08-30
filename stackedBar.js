@@ -190,6 +190,7 @@ const options = {
   responsive: true,
   maintainAspectRatio: false,
   indexAxis: 'y', // Change to horizontal
+  barThickness: 20, // Adjust bar thickness
   scales: {
     x: {
       stacked: true,
@@ -215,6 +216,12 @@ const options = {
     },
     y: {
       stacked: true,
+      barPercentage: 0.5, // Reduce spacing between bars
+      ticks: {
+        callback: function(value, index, values) {
+          return labels[index]; // Display only the names on the y-axis
+        },
+      },
     },
   },
   plugins: {
@@ -223,7 +230,7 @@ const options = {
     },
     datalabels: {
       display: function(context) {
-        return context.dataset.account !== null; // Display label only if account is not null
+        return context.dataset.account !== null && context.dataset.data[context.dataIndex] > 0; // Display label only if account is not null and data is greater than 0
       },
       formatter: function(value, context) {
         return context.dataset.account; // Display account name

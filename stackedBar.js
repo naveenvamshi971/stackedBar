@@ -217,6 +217,7 @@ const options = {
     y: {
       stacked: true,
       barPercentage: 0.5, // Reduce spacing between bars
+      categoryPercentage: 0.5, // Reduce spacing between y-axis labels
       ticks: {
         callback: function(value, index, values) {
           return labels[index]; // Display only the names on the y-axis

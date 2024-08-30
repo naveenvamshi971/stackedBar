@@ -1,10 +1,10 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Bar } from 'react-chartjs-2';
 
 // Register necessary components
-Chart.register(...registerables);
+Chart.register(...registerables, ChartDataLabels);
 
 let projectNames = ['Allocated-Working', 'NotAllocated-Working', 'Allocated-Available', 'Available', 'Reserved'];
 
@@ -248,6 +248,7 @@ const StackedBarGraph = () => {
       type: 'bar',
       data: chartData,
       options: options,
+      plugins: [ChartDataLabels], // Add the datalabels plugin
     });
     return () => {
       if (chartInstanceRef.current) {

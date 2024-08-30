@@ -190,7 +190,7 @@ const options = {
   responsive: true,
   maintainAspectRatio: false,
   indexAxis: 'y', // Change to horizontal
-  barThickness: 20, // Adjust bar thickness
+  barThickness: 40, // Adjust bar thickness
   scales: {
     x: {
       stacked: true,
@@ -217,11 +217,14 @@ const options = {
     y: {
       stacked: true,
       barPercentage: 0.5, // Reduce spacing between bars
-      categoryPercentage: 0.5, // Reduce spacing between y-axis labels
       ticks: {
+        padding: 0, // Reduce spacing between y-axis labels
         callback: function(value, index, values) {
           return labels[index]; // Display only the names on the y-axis
         },
+      },
+      grid: {
+        display: false, // Hide grid lines
       },
     },
   },
@@ -236,7 +239,7 @@ const options = {
       formatter: function(value, context) {
         return context.dataset.account; // Display account name
       },
-      color: 'black', // Set label color
+      color: 'white', // Set label color
       anchor: 'center', // Position label in the center of the bar
       align: 'center', // Align label in the center of the bar
     },

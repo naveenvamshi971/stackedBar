@@ -1,46 +1,28 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+import PropTypes from 'prop-types';
+import Card from '@mui/material/Card';
+import Icon from '@mui/material/Icon';
+import MDBox from 'components/MDBox';
+import MDTypography from 'components/MDTypography';
 
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
-
-// @mui material components
-import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-
-function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
+function ComplexStatisticsCard({ color, title, count, percentage, icon, sx }) {
   return (
     <Card>
       <MDBox display="flex" alignItems="center" justifyContent="space-between" pt={1} px={2}>
         {/* Icon Container */}
         <MDBox
-          variant="gradient"
-          bgColor={color}
-          color={color === "light" ? "dark" : "white"}
-          coloredShadow={color}
-          borderRadius="xl"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="2.5rem" // Adjust width to reduce space
-          height="2.5rem" // Adjust height to match width
-          mt={-3}
+          sx={{
+            backgroundColor: color,
+            color: color === "light" ? "dark" : "white",
+            borderRadius: "xl",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "2.5rem", // Adjust width to reduce space
+            height: "2.5rem", // Adjust height to match width
+            mt: -3,
+            ...sx, // Apply additional styles from sx prop
+          }}
         >
           <Icon fontSize="inherit" color="inherit" style={{ fontSize: "1.5rem" }}>
             {icon}
@@ -48,17 +30,19 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
         </MDBox>
         {/* Text Container */}
         <MDBox
-          textAlign="right"
-          lineHeight={1.25}
-          flex="1"
-          overflow="hidden" // Ensure text does not overflow
+          sx={{
+            textAlign: "right",
+            lineHeight: 1.25,
+            flex: 1,
+            overflow: "hidden", // Ensure text does not overflow
+          }}
         >
           <MDTypography
             variant="button"
             fontWeight="light"
             color="text"
             noWrap // Prevent text wrapping
-            style={{ fontSize: "0.7rem" }} // Reduce font size of the title
+            sx={{ fontSize: "0.7rem" }} // Reduce font size of the title
           >
             {title}
           </MDTypography>
@@ -75,7 +59,7 @@ function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
           >
             {percentage.amount}
           </MDTypography>
-          &nbsp;{percentage.label}
+          {percentage.label}
         </MDTypography>
       </MDBox>
     </Card>
@@ -90,6 +74,7 @@ ComplexStatisticsCard.defaultProps = {
     text: "",
     label: "",
   },
+  sx: {}, // Default empty object for sx prop
 };
 
 // Typechecking props for the ComplexStatisticsCard
@@ -121,6 +106,7 @@ ComplexStatisticsCard.propTypes = {
     label: PropTypes.string,
   }),
   icon: PropTypes.node.isRequired,
+  sx: PropTypes.object, // Prop type for sx prop
 };
 
 export default ComplexStatisticsCard;

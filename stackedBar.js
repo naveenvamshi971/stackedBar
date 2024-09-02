@@ -112,7 +112,7 @@ const data = [
         {
           projectId: '61241511',
           allocationType: 'Reserved',
-          account: null,
+          account: "L&T CIT",
           startDate: '2024-07-01',
           endDate: '2024-09-30',
           monthFrom: '1',
@@ -204,23 +204,22 @@ const projects = data.reduce((result, item) => {
     });
     return result;
   }, {});
-  const calculateDaysDifference = (startDate, endDate) => {
+  
+  const calculateMonthsDifference = (startDate, endDate) => {
     if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const timeDifference = end.getTime() - start.getTime();
-    const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert milliseconds to days
-    return daysDifference;
+    return (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
   };
   
   data.forEach((item, index) => {
     item.projects.forEach(prj => {
       const prjId = prj.projectId;
-      const daysDifference = calculateDaysDifference(prj.startDate, prj.endDate);
-      projects[prjId].data[index] = daysDifference;
+      const monthsDifference = calculateMonthsDifference(prj.startDate, prj.endDate);
+      projects[prjId].data[index] = monthsDifference;
     });
   });
-  
+
   const chartData = {
     datasets: Object.values(projects),
     labels: labels,
@@ -230,18 +229,21 @@ const projects = data.reduce((result, item) => {
     responsive: true,
     maintainAspectRatio: false,
     indexAxis: 'y', // Change to horizontal
-    barThickness: 130, // Adjust bar thickness
+    barThickness: 50, // Adjust bar thickness
     scales: {
       x: {
         stacked: true,
         position: 'top', // Position x-axis on top
+        categoryPercentage: 1.0,
+        barPercentage: 1.0,
+
         ticks: {
           callback: function(value) {
-            const days = [
+            const months = [
               'Apr 2024', 'May 2024', 'Jun 2024', 'Jul 2024', 'Aug 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dec 2024', 
               'Jan 2025', 'Feb 2025', 'Mar 2025'
             ];
-            return days[value] || value;
+            return months[value] || value;
           },
           stepSize: 1,
           maxRotation: 0, // Prevent label rotation
@@ -251,20 +253,20 @@ const projects = data.reduce((result, item) => {
           },
         },
         grid: {
-          display: false, // Hide grid lines
+          display: true, // Hide grid lines
         },
       },
       y: {
         stacked: true,
-        barPercentage: 0.5, // Reduce spacing between bars
-        ticks: {
-          padding: 0, // Reduce spacing between y-axis labels
+        beginAtZero: true,
+
+      ticks: {
           callback: function(value, index, values) {
             return labels[index]; // Display only the names on the y-axis
           },
         },
         grid: {
-          display: false, // Hide grid lines
+          display: true, // Hide grid lines
         },
       },
     },
@@ -285,6 +287,8 @@ const projects = data.reduce((result, item) => {
       },
     },
   };
+
+
 /* 
 function StackedBarChart({ color, title, description, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});

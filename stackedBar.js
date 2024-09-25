@@ -55,11 +55,11 @@ const data = [
           empty: false,
         },
         {
-          projectId: '57141503',
+          projectId: '87141503',
           allocationType: 'NotAllocated-Working',
           account: null,
-          startDate: '2024-06-01',
-          endDate: '2024-11-30',
+          startDate: '2024-07-01',
+          endDate: '2024-09-30',
           monthFrom: '3',
           monthTo: '8',
           personMonths: 6,
@@ -70,8 +70,8 @@ const data = [
           projectId: '61141504',
           allocationType: 'Available',
           account: null,
-          startDate: '2024-11-01',
-          endDate: '2025-01-31',
+          startDate: '2024-10-01',
+          endDate: '2024-12-31',
           monthFrom: '7.0',
           monthTo: '12',
           personMonths: 2,
@@ -81,9 +81,9 @@ const data = [
         {
             projectId: '91141522',
             allocationType: 'Reserved',
-            account: "Citi",
+            account: "Paramount",
             startDate: '2025-01-01',
-            endDate: '2025-03-20',
+            endDate: '2025-02-20',
             monthFrom: '7.0',
             monthTo: '12',
             personMonths: 2,
@@ -114,7 +114,7 @@ const data = [
           allocationType: 'Reserved',
           account: "L&T CIT",
           startDate: '2024-07-01',
-          endDate: '2025-04-30',
+          endDate: '2024-09-30',
           monthFrom: '1',
           monthTo: '4',
           personMonths: 8,
@@ -144,8 +144,8 @@ const data = [
           projectId: 'somerandom',
           allocationType: 'Available',
           account: null,
-          startDate: '2024-10-01',
-          endDate: '2025-04-30',
+          startDate: '2024-07-01',
+          endDate: '2024-09-30',
           monthFrom: '1',
           monthTo: '4',
           personMonths: 2,
@@ -156,8 +156,8 @@ const data = [
           projectId: '61241514',
           allocationType: 'Allocated-Working',
           account: "Honda",
-          startDate: '2024-7-01',
-          endDate: '2024-10-31',
+          startDate: '2024-10-01',
+          endDate: '2024-12-31',
           monthFrom: '1',
           monthTo: '4',
           personMonths: 5,
@@ -176,7 +176,7 @@ const data = [
           allocationType: 'Allocated-Available',
           account: null,
           startDate: '2024-04-01',
-          endDate: '2025-03-01',
+          endDate: '2025-01-01',
           monthFrom: '1',
           monthTo: '4',
           personMonths: 4,
@@ -229,7 +229,7 @@ const projects = data.reduce((result, item) => {
     responsive: true,
     maintainAspectRatio: false,
     indexAxis: 'y', // Change to horizontal
-    barThickness: 50, // Adjust bar thickness
+    barThickness: 30, // Adjust bar thickness
     scales: {
       x: {
         stacked: true,
@@ -250,31 +250,20 @@ const projects = data.reduce((result, item) => {
           },
         },
         grid: {
-          display: true, // Show grid lines
-          color: 'rgba(0, 0, 0, 0.1)', // Set grid line color
-          lineWidth: 1, // Set grid line width
-          drawBorder: false, // Hide grid border
-          drawOnChartArea: true, // Draw grid lines on chart area
-          drawTicks: false, // Hide grid ticks
-          tickLength: 10, // Set tick length
+          display: false, // Hide grid lines
         },
       },
       y: {
         stacked: true,
         barPercentage: 0.5, // Reduce spacing between bars
         ticks: {
+          padding: 0, // Reduce spacing between y-axis labels
           callback: function(value, index, values) {
             return labels[index]; // Display only the names on the y-axis
           },
         },
         grid: {
-          display: true, // Show grid lines
-          color: 'rgba(0, 0, 0, 0.1)', // Set grid line color
-          lineWidth: 1, // Set grid line width
-          drawBorder: false, // Hide grid border
-          drawOnChartArea: true, // Draw grid lines on chart area
-          drawTicks: false, // Hide grid ticks
-          tickLength: 10, // Set tick length
+          display: false, // Hide grid lines
         },
       },
     },
@@ -295,7 +284,6 @@ const projects = data.reduce((result, item) => {
       },
     },
   };
-
 /* 
 function StackedBarChart({ color, title, description, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
